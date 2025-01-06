@@ -1,166 +1,66 @@
-<!DOCTYPE html>
-<html>
+Route Map Web Application
+Overview
+This project is a web-based route map application built using HTML, CSS, and the Leaflet.js library. It showcases a personal journey from Appalachian State University to various meaningful destinations, including Mama Nick's, Duck Donuts, and O'Malley's Pub.
 
-<head>
-	<meta charset=utf-8 />
-	<title>route map</title>
-	<meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+The map highlights:
 
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.css" />
-	<link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.1/dist/leaflet.css" />
-	<link href="https://fonts.googleapis.com/css?family=Noto+Sans" rel="stylesheet">
-	<link href="https://fonts.googleapis.com/css?family=Lora" rel="stylesheet">
+A custom route using GeoJSON data.
+Stops with tooltips describing key points along the route.
+Features
+Interactive Map:
 
-	<style>
-		body {
-			margin: 0;
-			padding: 0; 
-			font-family: "Open Sans", sans-serif;
-			color: #796f6f;
-		}
+Powered by Leaflet.js with a CartoDB Voyager basemap.
+GeoJSON data to plot a route and key points.
+Custom Styling:
 
-		h1 {
-			position: absolute;
-			margin-top: 0;
-			top: 10px;
-			left: 45px;
-			font-size: 2em;
-			font-family: "Geneva", sans-serif;
-			letter-spacing: .04em;
-			padding: 10px 15px;
-			background: rgba(256, 256, 256);
-			border: 1px solid grey;
-			border-radius: 3px;
-			z-index: 800;
-		}
+Custom styles for the map and UI, providing a clean and interactive user experience.
+Unique route line styles (color, weight, and opacity) and tooltip popups.
+Personal Narrative:
 
-		h2 {
-			font-family: "American Typewriter", serif;
-			letter-spacing: .04em;
-		}
+The project serves as a storytelling tool, with descriptions of the route and its significance.
+How to Use
+Prerequisites
+A basic web server to serve static files (e.g., Live Server for Visual Studio Code).
+Installation
+Clone or download the repository to your local machine.
+Ensure the following files are in the project directory:
+index.html: The main HTML file.
+data/route.js: A GeoJSON file containing route and point data.
+Any required assets (e.g., CSS and JS libraries are loaded via CDNs).
+Running the Project
+Open index.html in your browser, or use a local web server to view the project.
+Interact with the map:
+View the plotted route and its stops.
+Hover over points to see tooltips with more information.
+File Structure
+bash
+Copy code
+.
+├── index.html             # Main HTML file for the application
+├── data/
+│   └── route.js           # GeoJSON data for the route and stops
+├── README.md              # Documentation file (this file)
+Technologies Used
+HTML/CSS: For structure and styling.
+Leaflet.js: Interactive map visualization.
+CartoDB Basemaps: High-quality basemap tiles.
+GeoJSON: Data format for representing the route and stops.
+Customization
+Map Initialization
+To modify the initial view of the map, adjust the options object:
 
-		#map {
-			position: absolute;
-			top: 0;
-			bottom: 0;
-			width: 100%;
-		}
+javascript
+Copy code
+var options = {
+    center: [36.173849891280575, -80.05141310606683], // Latitude and Longitude
+    zoom: 16 // Zoom level
+};
+Route and Stops
+Update data/route.js to customize the GeoJSON data for new routes or stops.
+Modify the style function in the JavaScript code to change the appearance of the route.
+Tooltips
+Customize the tooltip content by modifying the feature.properties['name'] field in the GeoJSON data.
 
-		section {
-			position: absolute;
-			bottom: 0;
-			left: 10px;
-			width: 280px;
-			margin: 20px auto;
-			padding: 0 15px;
-			background: rgba(256, 256, 256);
-			border: 1px solid grey;
-			border-radius: 3px;
-			z-index: 800;
-		}
-
-		p {
-			font-size: .9em;
-			line-height: 1.5em;
-		}
-
-		a {
-			color: #669ac4;
-			text-decoration: none;
-		}
-
-		a:hover {
-			text-decoration: underline;
-		}
-	</style>
-</head>
-
-<body>
-
-	<h1>APPALACHIAN STATE UNIVERSITY TO MAMA NICK'S </h1>
-
-	<div id='map'></div>
-
-	<section>
-		<h2>ABOUT THIS MAP</h2>
-            <p> This route depicts a critical pathway to home and solace that includes food, family, and friends. That being one of the best custom donut shops ever concieved; Duck Donuts. 
-				It includes delicacies such as maple bacon, cookies and cream and any other flavor you can imagine that brings joy. After the obligarory donuts I visit my girlfriend and her family and welcome them with gifts. 
-				After devouring some donuts and a coffee refill, my final destination is to go back home. Almost, because adjacent to my neighborhood is one of the oldest pubs in Raleigh where
-				I had my first beer; O'Malley's Pub. I usually meet my mother there and we talk and catch up before we head back to the homestead for the day.  <menu></menu> </p>
-
-    </section>  
-
-    <script src="http://code.jquery.com/jquery-3.1.1.min.js"></script>
-	<script src="https://unpkg.com/leaflet@1.0.1/dist/leaflet.js"></script>
-    
-    <script src="data/route.js"></script> 
-   
-   <script> 
-   
-//options to be used when creating the map
-		var options = {
-			center: [36.173849891280575, -80.05141310606683],
-			zoom: 16
-		}
-        console.log(data);
-//creation of the Leaflet map
-		var map = L.map('map', options);
-
-//request to load basemap
-var CartoDB_VoyagerLabelsUnder = L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager_labels_under/{z}/{x}/{y}{r}.png', {
-	attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
-	subdomains: 'abcd',
-	maxZoom: 20
-}).addTo(map);
-
-//string content to be inserted into a tooltip
-		//var message = 'Beacon Heights!';
-
-//create a Leaflet marker, centered on the map's center.
-		//L.marker(map.getCenter())
-		//	.bindTooltip(message) //bind the tooltip and message to the marker
-		//	.addTo(map) // add the marker to the map`
-		//	.openTooltip(); // open the tooltip
-
-        var myRoute = L.geoJson(data, {
-         filter : function(feature) {
-            if(feature.geometry.type =="LineString") {
-             return feature;
-            }
-        },
-            style : function(feature) {
-                return {
-                    color: "#6a329f",
-                    weight: 6,
-                    opacity: 0.9,
-                    dashArray: "1, 1"
-                }
-            }
-            }).addTo(map);
-
-            var myStops = L.geoJson(data, {
-                filter : function(feature) {
-                    if(feature.geometry.type == "Point") {
-                        return feature;
-                 }
-                },
-                onEachFeature : function(feature, layer) {
-                    layer.bindTooltip(feature.properties['name']);
-                }
-                }).addTo(map);
-        map.fitBounds(myRoute.getBounds());
-	
-    
-    
-        </script>
-
-
-</body>
-
-
-
-
-</html>  
-
-		
+License
+This project is open-source and available under the MIT License.
 
