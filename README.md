@@ -1,66 +1,44 @@
-Route Map Web Application
-Overview
-This project is a web-based route map application built using HTML, CSS, and the Leaflet.js library. It showcases a personal journey from Appalachian State University to various meaningful destinations, including Mama Nick's, Duck Donuts, and O'Malley's Pub.
+# Route Map Project
 
-The map highlights:
+## Overview
 
-A custom route using GeoJSON data.
-Stops with tooltips describing key points along the route.
-Features
-Interactive Map:
+This project visualizes a route on a map using Leaflet.js. The route includes various stops and is displayed with custom styles and tooltips.
 
-Powered by Leaflet.js with a CartoDB Voyager basemap.
-GeoJSON data to plot a route and key points.
-Custom Styling:
+## Files
 
-Custom styles for the map and UI, providing a clean and interactive user experience.
-Unique route line styles (color, weight, and opacity) and tooltip popups.
-Personal Narrative:
+- `index.html`: The main HTML file that sets up and displays the map.
+- `data/route.js`: Contains the GeoJSON data for the route and stops.
 
-The project serves as a storytelling tool, with descriptions of the route and its significance.
-How to Use
-Prerequisites
-A basic web server to serve static files (e.g., Live Server for Visual Studio Code).
-Installation
-Clone or download the repository to your local machine.
-Ensure the following files are in the project directory:
-index.html: The main HTML file.
-data/route.js: A GeoJSON file containing route and point data.
-Any required assets (e.g., CSS and JS libraries are loaded via CDNs).
-Running the Project
-Open index.html in your browser, or use a local web server to view the project.
-Interact with the map:
-View the plotted route and its stops.
-Hover over points to see tooltips with more information.
-File Structure
-bash
-Copy code
-.
-├── index.html             # Main HTML file for the application
-├── data/
-│   └── route.js           # GeoJSON data for the route and stops
-├── README.md              # Documentation file (this file)
-Technologies Used
-HTML/CSS: For structure and styling.
-Leaflet.js: Interactive map visualization.
-CartoDB Basemaps: High-quality basemap tiles.
-GeoJSON: Data format for representing the route and stops.
-Customization
-Map Initialization
-To modify the initial view of the map, adjust the options object:
+## Dependencies
 
-javascript
-Copy code
-var options = {
-    center: [36.173849891280575, -80.05141310606683], // Latitude and Longitude
-    zoom: 16 // Zoom level
-};
-Route and Stops
-Update data/route.js to customize the GeoJSON data for new routes or stops.
-Modify the style function in the JavaScript code to change the appearance of the route.
-Tooltips
-Customize the tooltip content by modifying the feature.properties['name'] field in the GeoJSON data.
+- [Normalize.css](https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.css): A CSS reset library.
+- [Leaflet.js](https://unpkg.com/leaflet@1.0.1/dist/leaflet.js): A JavaScript library for interactive maps.
+- [jQuery](http://code.jquery.com/jquery-3.1.1.min.js): A fast, small, and feature-rich JavaScript library.
 
-License
-This project is open-source and available under the MIT License.
+## Usage
 
+1. Open `index.html` in a web browser.
+2. The map will be centered at the specified coordinates with a zoom level of 16.
+3. The base map tiles are loaded from CartoDB.
+4. The route and stops are loaded from `data/route.js` and displayed on the map.
+5. The route is styled with a purple line, and stops are marked with tooltips displaying their names.
+
+## Code Explanation
+
+### HTML Structure
+
+- The `<head>` section includes meta tags, external CSS, and internal styles.
+- The `<body>` section contains a title, a map container (`#map`), and a section with information about the map.
+
+### JavaScript
+
+- The map is created using Leaflet.js with specified options (center and zoom level).
+- Base map tiles are loaded from CartoDB.
+- GeoJSON data from `data/route.js` is used to create the route and stops on the map.
+- The route is styled with a custom color, weight, opacity, and dash pattern.
+- Stops are marked with tooltips displaying their names.
+- The map view is adjusted to fit the bounds of the route.
+
+## License
+
+This project is licensed under the MIT License.
